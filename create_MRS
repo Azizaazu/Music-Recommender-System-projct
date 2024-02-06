@@ -1,0 +1,40 @@
+
+import pandas as pd
+from sklearn.metrics.pairwise import cosine_similarity
+
+# Sample music dataset (replace with your own dataset)
+music_data = {
+    'user_id': [1, 1, 1, 2, 2],
+    'track_id': [101, 102, 103, 101, 104],
+    'rating': [5, 4, 3, 5, 4]
+}
+
+df = pd.DataFrame(music_data)
+
+# Convert data into user-item matrix
+user_item_matrix = df.pivot_table(index='user_id', columns='track_id', values='rating').fillna(0)
+
+# Calculate user similarity based on cosine similarity
+user_similarity = cosine_similarity(user_item_matrix)
+
+def get_recommendations(user_id):
+    # Get similarity scores for the given user
+    sim_scores = list(enumerate(user_similarity[user_id - 1]))
+
+    # Sort users by similarity scores
+    sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
+
+    # Get top 3 similar users
+    top_similar_users = sim_scores[1:4]
+
+    # Get tracks listened to by similar users but not by the given user
+    tracks_listened_by_similar_users = user_item_matrix.loc[[user[0] + 1 for user in top_similar_users]]
+    user_tracks = user_item_matrix.loc[user_id].replace(0, pd.NA)
+    recommendations = tracks_listened_by_similar_users[user_tracks.isna()].count().sort_values(ascending=False)
+
+    return recommendations.index.tolist()[:3]
+
+# Example usage
+user_id = 1
+recommendations = get_recommendations(user_id)
+print(f"Recommended tracks for user {user_id}: {recommendations}")
