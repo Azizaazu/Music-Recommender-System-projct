@@ -1,6 +1,5 @@
-Research-project_approval-Music-Recommender-System
+Music Recommender System
 
-Project Proposal: Music Recommender System:
 
 In this project, we aim to develop a personalized music recommender system that suggests new songs based on a user's 'liked' songs. The system will utilize collaborative filtering techniques to analyze user preferences and recommend songs that align with their tastes. Users will have the ability to receive tailored music suggestions, enhancing their overall listening experience.
 
