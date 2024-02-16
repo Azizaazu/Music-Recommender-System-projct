@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MUZU Music Recommender</title>
+    <!-- Add any necessary CSS stylesheets here -->
+    <style>
+        /* Example CSS styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        input[type="text"], input[type="password"], input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .error {
+            color: red;
+        }
+        .recommended-music {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        }
+        .music-item {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>MUZU Music Recommender</h1>
+        
+        <!-- Login Form -->
+        <div id="login-form">
+            <h2>Login</h2>
+            <form action="/login" method="post">
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <input type="submit" value="Login">
+            </form>
+            {% if error %}
+            <p class="error">{{ error }}</p>
+            {% endif %}
+        </div>
+
+        <!-- Registration Form -->
+        <div id="registration-form">
+            <h2>Register</h2>
+            <form action="/register" method="post">
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <input type="submit" value="Register">
+            </form>
+        </div>
+
+        <!-- Recommended Music Section (To be populated dynamically) -->
+        <div id="recommended-music" class="recommended-music">
+            <h2>Recommended Music</h2>
+            <div class="music-item">
+                <strong>Song Title:</strong> Song 1<br>
+                <strong>Artist:</strong> Artist 1<br>
+                <strong>Genre:</strong> Genre 1
+            </div>
+            <div class="music-item">
+                <strong>Song Title:</strong> Song 2<br>
+                <strong>Artist:</strong> Artist 2<br>
+                <strong>Genre:</strong> Genre 2
+            </div>
+            <!-- Add more music items dynamically -->
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+from flask import Flask, render_template, request, redirect, url_for, session
+import sqlite3
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.metrics.pairwise import cosine_similarity
+
+# Step 1: Setup
+app = Flask(__name__)
+app.secret_key = 'your_secret_key'
+
+# Step 2: Create Flask Application
+@app.route('/')
+def index():
+    if 'user_id' in session:
+        return render_template('index.html', user_id=session['user_id'])
+    else:
+        return redirect(url_for('login'))
+
+# Step 3: User Authentication
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        # Authenticate user (e.g., check credentials against database)
+        username = request.form['username']
+        password = request.form['password']
+        
+        # Example: Check against hardcoded credentials (not recommended for production)
+        if username == 'admin' and password == 'password':
+            session['user_id'] = 1  # Simulate user authentication
+            return redirect(url_for('index'))
+        else:
+            return render_template('login.html', error='Invalid username or password')
+    return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('user_id', None)
+    return redirect(url_for('index'))
+
+# Step 4: Music Recommendation (Similar to previous code)
+
+# Step 5: User Interface
+# Create HTML templates in a folder named 'templates'
+# Example: templates/index.html, templates/login.html
+
+# Step 6: Run the Application
+if __name__ == '__main__':
+    app.run(debug=True)
